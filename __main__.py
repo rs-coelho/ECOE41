@@ -1,15 +1,16 @@
-import menus
+from structures.pilha import Pilha
 
 
 class Execute:
     @staticmethod
     def run():
-        pass
+        p = Pilha()
+        p.mainloop()
 
 
 if __name__ == '__main__':
     print('Log Begin')
     print('------------------------------------')
-    # run
+    Execute.run()
     print('------------------------------------')
     print('Log End')

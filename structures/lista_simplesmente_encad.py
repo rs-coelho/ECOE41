@@ -1,4 +1,4 @@
-class Lista:
+class ListaDE:
     def __init__(self):
         pass
 
