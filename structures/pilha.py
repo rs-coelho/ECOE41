@@ -1,6 +1,7 @@
 import tkinter as tk
 from functools import partial
-from no import NoRedondo, NoQuadrado
+from structures.no import NoRedondo, NoQuadrado
+
 
 # A pilha estão seguindo os padrões do exAddingShapes
 # Modifique para que ela aceite o NoRedondo
@@ -9,14 +10,14 @@ from no import NoRedondo, NoQuadrado
 class Pilha(tk.Tk):
 
     def __init__(self, stuff: list = (1, 2, 3)):
-
-    #     super(Pilha, self).__init__()
+        super(Pilha, self).__init__()
         self.vet = stuff
         print('Objeto Pilha com ', self.vet, ' de valor inicial')
-        #self.canvas = tk.Canvas(self,bg="white")
-        #self.draw = NoRedondo(160,230, self.vet[1])
-        
-        #self.draw.pack()
+        # self.canvas = tk.Canvas(self, bg="white")
+        # self.draw = NoRedondo(160, 230, self.vet[1])
+
+        # self.draw.pack()
+
     def __len__(self):
         return len(self.vet)
 
@@ -25,5 +26,7 @@ class Pilha(tk.Tk):
 
     def pop(self):
         return self.vet.pop()
+
+
 app = Pilha()
-#app.mainloop()
+# app.mainloop()
