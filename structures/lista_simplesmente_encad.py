@@ -84,3 +84,8 @@ class ListaSE:
             r += str(h.item) + '(' + a + ')'
             h = h.next
         return r + "]"
+
+
+if __name__ == "__main__":
+    # write test code
+    pass

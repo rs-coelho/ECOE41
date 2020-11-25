@@ -55,5 +55,9 @@ class NoQuadrado(tk.Tk):
         self.canvas.create_rectangle(box)
 
 
-app = NoQuadrado()
-app.mainloop()
+if __name__ == "__main__":
+    app = NoQuadrado()
+    app.mainloop()
+    pass
+
+

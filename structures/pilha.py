@@ -28,5 +28,8 @@ class Pilha(tk.Tk):
         return self.vet.pop()
 
 
-app = Pilha()
-# app.mainloop()
+if __name__ == "__main__":
+    app = Pilha()
+    # app.mainloop()
+    pass
+

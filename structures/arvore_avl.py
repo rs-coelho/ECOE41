@@ -6,10 +6,23 @@ class Branch:
 
 
 class AVLTree:
-    def __init__(self, head: Branch):
-        self.head = head
+    def __init__(self):
+        self.head = None
         self.height = -1
         self.balance = 0
+
+    def __str__(self):
+        return self.display()
+
+    def display(self, level=0, pref=''):
+        if self.head is not None:
+            print('-' * level * 2, pref, self.head.item, "[" + str(self.height) + ":" + str(
+                self.balance) + "]", 'L' if self.height == 0 else ' ')
+            if self.head.left is not None:
+                self.head.left.display(level + 1, '<')
+            if self.head.left is not None:
+                self.head.right.display(level + 1, '>')
+        return '\nFinish'
 
     def insert(self, item):
         tree = self.head
@@ -30,8 +43,8 @@ class AVLTree:
         self.rebalance()
 
     def rebalance(self):
-        self.sum_heights(False)
-        self.sum_balances(False)
+        self.sum_heights()
+        self.sum_balances()
 
         while self.balance < -1 or self.balance > 1:
 
@@ -59,21 +72,21 @@ class AVLTree:
 
     def rotate_right(self):
         h = self.head
-        l = self.head.left.head
-        r = l.right.head
+        left = self.head.left.head
+        right = left.right.head
 
-        self.head = l
-        l.right.head = h
-        h.left.head = r
+        self.head = left
+        left.right.head = h
+        h.left.head = right
 
     def rotate_left(self):
         h = self.head
-        r = self.head.right.head
-        l = r.left.head
+        right = self.head.right.head
+        left = right.left.head
 
-        self.head = r
-        r.left.head = h
-        h.right.head = l
+        self.head = right
+        right.left.head = h
+        h.right.head = left
 
     def sum_heights(self, recurse=True):
         if self.head is not None:
@@ -132,3 +145,14 @@ class AVLTree:
             self.rebalance()
         else:
             return
+
+
+if __name__ == "__main__":
+    arvore = AVLTree()
+    arvore.insert(5)
+    arvore.insert(2)
+    arvore.insert(3)
+    arvore.insert(7)
+    arvore.insert(8)
+    arvore.insert(9)
+    print(arvore)

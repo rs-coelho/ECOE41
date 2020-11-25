@@ -15,3 +15,9 @@ class Fila(tk.Tk):
 
     def pop(self):
         self.vet.pop(0)
+
+
+if __name__ == "__main__":
+    # write test code
+    pass
+
