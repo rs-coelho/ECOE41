@@ -1,5 +1,3 @@
-# mudar pois está implementada como uma lista duplamente encadeada
-
 class Node:
     def __init__(self, item, nxt=None, prv=None):
         self.item = item

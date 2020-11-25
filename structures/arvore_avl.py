@@ -22,7 +22,7 @@ class AVLTree:
                 self.head.left.display(level + 1, '<')
             if self.head.left is not None:
                 self.head.right.display(level + 1, '>')
-        return '\nFinish'
+        return
 
     def insert(self, item):
         tree = self.head
@@ -41,6 +41,17 @@ class AVLTree:
             self.head.right.insert(item)
 
         self.rebalance()
+
+    def search(self, item):
+        if self.head is not None:
+            if self.head.item == item:
+                return True
+            if self.head.left is not None:
+                self.head.left.search(item)
+            if self.head.left is not None:
+                self.head.right.search(item)
+
+        return False
 
     def rebalance(self):
         self.sum_heights()
@@ -137,10 +148,10 @@ class AVLTree:
                 return
 
             elif item < self.head.item:
-                self.head.left.delete(item)
+                self.head.left.remove(item)
 
             elif item > self.head.item:
-                self.head.right.delete(item)
+                self.head.right.remove(item)
 
             self.rebalance()
         else:
@@ -155,4 +166,5 @@ if __name__ == "__main__":
     arvore.insert(7)
     arvore.insert(8)
     arvore.insert(9)
+    print(arvore.search(7))
     print(arvore)
