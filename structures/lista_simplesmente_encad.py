@@ -1,10 +1,9 @@
-# mudar pois está implementada como uma lista duplamente encadeada
+
 
 class Node:
-    def __init__(self, item, nxt=None, prev=None):
+    def __init__(self, item, nxt=None):
         self.item = item
         self.next = nxt
-        self.prev = prev
 
 
 class ListaSE:
@@ -37,9 +36,11 @@ class ListaSE:
         if self.isEmpty():
             return None
         p = self.head
+        a = None
         while p:
             if p.item == v:
-                return p
+                return p, a
+            a = p
             p = p.next
         return None
 
@@ -51,17 +52,15 @@ class ListaSE:
         return new_node
 
     def delete(self, val):
-        p = self.search(val)
+        p, a = self.search(val)
         if not p:
             return False
 
         if self.head == p:
             self.head = p.next
-        else:
-            p.prev.next = p.next
 
         if p.next:
-            p.next.prev = p.prev
+            a.next = p.next
         del p
         return True
 
@@ -77,13 +76,11 @@ class ListaSE:
     def print_linked(self):
         h = self.head
         r = "["
-        a, b = None, None
+        a = None
         while h:
             r = "[" if h == self.head else r + ", "
             if h.next is not None:
                 a = str(h.next.item)
-            if h.prev is not None:
-                b = str(h.prev.item)
-            r += str(h.item) + '(' + a + ', ' + b + ')'
+            r += str(h.item) + '(' + a + ')'
             h = h.next
         return r + "]"
