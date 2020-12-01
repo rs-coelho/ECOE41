@@ -17,12 +17,10 @@ class Fila(tk.Tk):
         btn = tk.Button(framefila, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn.config(command=self.append)
-        self.canvas.bind("<Button-1>", self.append(1))
 
         btn2 = tk.Button(framefila, text='pop')
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn2.config(command=self.pop)
-        self.canvas.bind("<Button-2>", self.pop())
 
         for a in range(len(self.vet)):
             self.draw_quad()
