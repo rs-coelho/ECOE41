@@ -46,14 +46,14 @@ class Pilha(tk.Tk):
 
     def append(self, other=1):
         self.vet.append(other)
-        print(self.vet)
+        print('Pilha: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
 
     def pop(self):
         self.y += 40 * (len(self.vet) + 1)
         self.canvas.delete(tk.ALL)
-        print(self.vet)
+        print('Pilha: ', self.vet)
         if self.vet:
             for i in range(len(self.vet)):
                 self.draw_quad()

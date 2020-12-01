@@ -40,7 +40,6 @@ class Fila(tk.Tk):
     def draw_quad(self):
         box = (self.x, self.y, self.x + 60, self.y - 40)
         self.y += 40
-        print(self.y)
         self.canvas.create_rectangle(box)
 
     def __len__(self):
@@ -48,14 +47,14 @@ class Fila(tk.Tk):
 
     def append(self, other=1):
         self.vet.append(other)
-        # print(self.vet)
+        print('Fila: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
 
     def pop(self):
         self.y -= 40 * (len(self.vet) + 1)
         self.canvas.delete(tk.ALL)
-        # print(self.vet)
+        print('Fila: ', self.vet)
         if self.vet:
             for i in range(len(self.vet)):
                 self.draw_quad()
