@@ -1,36 +1,33 @@
 import tkinter as tk
-from functools import partial
-
-# Problemas de inserção
 
 
 class Pilha(tk.Tk):
 
-    def __init__(self, stuff: list = [1, 2, 3]):
+    def __init__(self):
         super(Pilha, self).__init__()
-        self.vet = stuff
+        self.vet = [1, 2, 3]
         print('Objeto Pilha com ', self.vet, ' de valor inicial')
         self.title("Pilha")
         self.x = 150
-        self.y = 240
+        self.y = 220
         self.canvas = tk.Canvas(self, bg="white")
-        frame = tk.Frame(self)
+        frame_pilha = tk.frame_pilha(self)
 
-        btn = tk.Button(frame, text='insert')
+        btn = tk.Button(frame_pilha, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn.config(command=self.append)
         self.canvas.bind("<Button-1>", self.append(1))
 
-        btn2 = tk.Button(frame, text='pop')
+        btn2 = tk.Button(frame_pilha, text='pop')
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn2.config(command=self.pop)
         self.canvas.bind("<Button-2>", self.pop())
-        #  self.update()
+
         for a in range(len(self.vet)):
             self.draw_quad()
             self.write_text(a)
             self.canvas.pack()
-            frame.pack(fill=tk.BOTH)
+            frame_pilha.pack(fill=tk.BOTH)
 
     def set_selection(self, widget):
         for w in widget.master.winfo_children():
