@@ -9,9 +9,11 @@ class Pilha(tk.Tk):
         print('Objeto Pilha com ', self.vet, ' de valor inicial')
         self.title("Pilha")
         self.x = 150
-        self.y = 220
+        self.y = 260
         self.canvas = tk.Canvas(self, bg="white")
         frame_pilha = tk.Frame(self)
+
+        self.canvas.bind('<Double-1>', self.append_double)
 
         btn = tk.Button(frame_pilha, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
@@ -47,10 +49,24 @@ class Pilha(tk.Tk):
 
     def append(self):
         other = self.var.get()
+        if other == '':
+            return False
         self.vet.append(other)
-        print('Pilha: ', self.vet)
+        print('Fila: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
+        self.entry.delete(0, 'end')
+
+    def append_double(self, event):
+        other = self.var.get()
+        if other == '':
+            return False
+        self.vet.append(other)
+        print('Fila: ', self.vet)
+        self.draw_quad()
+        self.write_text(-1)
+        self.entry.delete(0, 'end')
+        return other
 
     def pop(self):
         popped = self.vet.pop()

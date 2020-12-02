@@ -1,8 +1,6 @@
 import tkinter as tk
 
-from structures.input import Input
 
-# still not working
 class Fila(tk.Tk):
 
     def __init__(self):
@@ -10,11 +8,12 @@ class Fila(tk.Tk):
         self.vet = [1, 2, 3]
         print('Objeto Fila com ', self.vet, ' de valor inicial')
         self.title("Fila")
-        self.geometry('500x500')
         self.x = 150
-        self.y = 100
+        self.y = 50
         self.canvas = tk.Canvas(self, bg="white")
         framefila = tk.Frame(self)
+
+        self.canvas.bind('<Double-1>', self.append_double)
 
         btn = tk.Button(framefila, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
@@ -50,11 +49,25 @@ class Fila(tk.Tk):
 
     def append(self):
         other = self.var.get()
+        if other == '':
+            return False
         self.vet.append(other)
         print('Fila: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
-        self.update()
+        self.entry.delete(0, 'end')
+        return other
+
+    def append_double(self, event):
+        other = self.var.get()
+        if other == '':
+            return False
+        self.vet.append(other)
+        print('Fila: ', self.vet)
+        self.draw_quad()
+        self.write_text(-1)
+        self.entry.delete(0, 'end')
+        return other
 
     def pop(self):
         popped = self.vet.pop(0)
