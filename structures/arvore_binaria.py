@@ -1,15 +1,57 @@
-class BranchLeaf:
+import tkinter as tk
+
+
+class BranchLeaf(tk.Tk):
     def __init__(self, item, right=None, left=None):
+        super(BranchLeaf, self).__init__()
         self.item = item
         self.right = right
         self.left = left
+        self.r = 3
+
+    def draw_circle(self, x, y):
+        box = (x - self.r, y - self.r, x + self.r, y + self.r)
+        self.canvas.create_oval(box)
 
 
-class BinaryTree:
+class BinaryTree(tk.Tk):
 
     def __init__(self, height=0):
         self.head = None
         self.height = height
+        super(BinaryTree, self).__init__()
+        print('Objeto Arvore Binaria com ', self, ' de valor inicial')
+        self.title("Arvore Binaria")
+        self.x = 150
+        self.y = 100
+        self.canvas = tk.Canvas(self, bg="white")
+        framebt = tk.Frame(self)
+
+        btn = tk.Button(framebt, text='insert')
+        btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        btn.config(command=self.insert)
+
+        btn2 = tk.Button(framebt, text='remove')
+        btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        btn2.config(command=self.remove)
+
+        for a in range(len(self)):
+            self.draw_circle()
+            self.write_text(a)
+            self.canvas.pack()
+            framebt.pack(fill=tk.BOTH)
+
+    def set_selection(self, widget):
+        for w in widget.master.winfo_children():
+            w.config(relief=tk.RAISED)
+            widget.config(relief=tk.SUNKEN)
+
+    def write_text(self, i):
+        text_id = self.canvas.create_text((self.x + 30, self.y - 60))
+        self.canvas.itemconfig(text_id, text=self.vet[i])
+
+    def __len__(self):
+        return len(self.vet)
 
     def __str__(self):
         return self.__print_structure()
@@ -76,7 +118,7 @@ if __name__ == "__main__":
     arvore.insert(7)
     arvore.insert(8)
     arvore.insert(9)
-
+    arvore.mainloop()
     print(arvore)
     arvore.remove(5)
     print(arvore)
