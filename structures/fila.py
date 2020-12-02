@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class Fila(tk.Tk):
+class Fila(tk.Toplevel):
 
     def __init__(self):
         super(Fila, self).__init__()

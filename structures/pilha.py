@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class Pilha(tk.Tk):
+class Pilha(tk.Toplevel):
 
     def __init__(self):
         super(Pilha, self).__init__()
