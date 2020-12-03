@@ -16,18 +16,18 @@ class Fila(tk.Toplevel):
         self.canvas.bind('<Double-1>', self.append_double)
 
         btn = tk.Button(framefila, text='insert')
-        btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        btn.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn.config(command=self.append)
 
         btn2 = tk.Button(framefila, text='pop')
-        btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        btn2.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn2.config(command=self.pop)
 
         self.var = tk.StringVar()
         labl = tk.Label(self, text="Insert: ")
         labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        self.entry = tk.Entry(self, textvariable=self.var)
-        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.entry = tk.Entry(self, width=10, textvariable=self.var)
+        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X)
 
         for a in range(len(self.vet)):
             self.draw_quad()
