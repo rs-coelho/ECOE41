@@ -9,7 +9,7 @@ class Execute(tk.Tk):
 
     def __init__(self):
         super(Execute, self).__init__()
-        print('######Main Menu initiated######')
+        print('###### Main Menu initiated ######')
         self.title("Main Menu")
         padding_x = 60
         padding_y = 30

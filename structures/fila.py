@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 
 class Fila(tk.Toplevel):
@@ -13,12 +14,12 @@ class Fila(tk.Toplevel):
         self.canvas = tk.Canvas(self, bg="white")
         framefila = tk.Frame(self)
 
-        self.canvas.bind('<Double-1>', self.append_double)
+        self.canvas.bind("<Button-1>", self.error)
 
         self.var = tk.StringVar()
-        labl = tk.Label(self, text="Insert: ")
+        labl = tk.Label(framefila, text="Insert: ")
         labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        self.entry = tk.Entry(self, width=10, textvariable=self.var)
+        self.entry = tk.Entry(framefila, width=10, textvariable=self.var)
         self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X)
 
         btn = tk.Button(framefila, text='insert')
@@ -44,21 +45,14 @@ class Fila(tk.Toplevel):
         self.y += 40
         self.canvas.create_rectangle(box)
 
+    @staticmethod
+    def error(event):
+        messagebox.showerror("Error", "Movimentação Não permitida pela estrutura")
+
     def __len__(self):
         return len(self.vet)
 
     def append(self):
-        other = self.var.get()
-        if other == '':
-            return False
-        self.vet.append(other)
-        print('Fila: ', self.vet)
-        self.draw_quad()
-        self.write_text(-1)
-        self.entry.delete(0, 'end')
-        return other
-
-    def append_double(self, event):
         other = self.var.get()
         if other == '':
             return False

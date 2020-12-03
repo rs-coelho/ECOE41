@@ -67,25 +67,36 @@ class ListaDE(tk.Toplevel):
         if self.isEmpty():
             return None
         p = self.head
+        a = None
         while p:
             if p.item == v:
-                return p
+                return p, a
+            a = p
             p = p.next
         return None
 
-    def insert(self, item=1):
+    def insert(self):
+        item = self.var.get()
+        self.entry.delete(0, 'end')
+        if item == '':
+            return False
+        self.len += 1
         new_node = Node(item, self.head)
         if not self.isEmpty():
             self.head.prev = new_node
-        self.head = new_node
+        else:
+            self.head = new_node
+        self.draw_quad()
+        self.write_text(item)
         print(self.head.item)
         return new_node
 
-    def delete(self, val):
-        p = self.search(val)
-        if not p:
+    def delete(self):
+        val = self.var.get()
+        self.entry.delete(0, 'end')
+        if val == '':
             return False
-
+        p, a = self.search(val)
         if self.head == p:
             self.head = p.next
         else:
@@ -94,6 +105,14 @@ class ListaDE(tk.Toplevel):
         if p.next:
             p.next.prev = p.prev
         del p
+
+        k = self.head
+        self.canvas.delete(tk.ALL)
+        self.x = 150
+        while k:
+            self.draw_quad()
+            self.write_text(k.item)
+            k = k.next
         print(self.head.item)
         return True
 
@@ -107,24 +126,17 @@ class ListaDE(tk.Toplevel):
             p = t
 
     def write_text(self, i):
-        text_id = self.canvas.create_text((self.x + 30, self.y + 20))
+        text_id = self.canvas.create_text((self.x - 50, self.y - 20))
         self.canvas.itemconfig(text_id, text=i)
 
     def draw_quad(self):
         box = (self.x, self.y, self.x + 60, self.y - 40)
-        self.y -= 40
         self.canvas.create_rectangle(box)
-
-        box2 = (self.x, self.y, self.x+30, self.y)
-        self.write_text("prox")
-        self.canvas.create_rectangle(box2)
-
-        box3 = (self.x, self.y, self.x-150, self.y)
-        self.write_text("ant")
-        self.canvas.create_rectangle(box3)
-
-        line = (self.x, self.y, self.x, self.y)
+        line = (self.x + 60, self.y - 20, self.x + 80, self.y - 20)
         self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+        line = (self.x, self.y - 20, self.x - 20, self.y - 20)
+        self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+        self.x += 80
 
 
 if __name__ == "__main__":

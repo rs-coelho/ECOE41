@@ -36,6 +36,9 @@ class ListaSE(tk.Toplevel):
         btn3.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn3.config(command=self.clear)
 
+        self.bind("<B1-Motion>", self.drag_motion)
+        self.bind("<Button-1>", self.drag_start)
+
         self.canvas.pack()
         framelista_se.pack(fill=tk.BOTH)
 
@@ -102,7 +105,7 @@ class ListaSE(tk.Toplevel):
 
         if self.head == p:
             self.head = p.next
-
+        print(p.next.item, a)
         if p.next and a is not None:
             a.next = p.next
         del p
@@ -125,7 +128,21 @@ class ListaSE(tk.Toplevel):
             del p
             p = t
         self.canvas.delete(tk.ALL)
+        self.x = 30
         print('ListaSE: ', self)
+
+    @staticmethod
+    def drag_start(event):
+        widget = event.widget
+        widget.startX = event.x
+        widget.startY = event.y
+
+    @staticmethod
+    def drag_motion(event):
+        widget = event.widget
+        x = widget.winfo_x() - widget.startX + event.x
+        y = widget.winfo_y() - widget.startY + event.y
+        widget.place(x=x, y=y)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 
 class Pilha(tk.Toplevel):
@@ -13,7 +14,7 @@ class Pilha(tk.Toplevel):
         self.canvas = tk.Canvas(self, bg="white")
         frame_pilha = tk.Frame(self)
 
-        self.canvas.bind('<Double-1>', self.append_double)
+        self.canvas.bind("<Button-1>", self.error)
 
         self.var = tk.StringVar()
         labl = tk.Label(frame_pilha, text="Insert: ")
@@ -43,6 +44,10 @@ class Pilha(tk.Toplevel):
         box = (self.x, self.y, self.x + 60, self.y - 40)
         self.y -= 40
         self.canvas.create_rectangle(box)
+
+    @staticmethod
+    def error(event):
+        messagebox.showerror("Error", "Movimentação Não permitida pela estrutura")
 
     def __len__(self):
         return len(self.vet)

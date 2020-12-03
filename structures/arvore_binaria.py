@@ -1,25 +1,20 @@
 import tkinter as tk
 
 
-class BranchLeaf(tk.Tk):
+class BranchLeaf():
     def __init__(self, item, right=None, left=None):
-        super(BranchLeaf, self).__init__()
         self.item = item
         self.right = right
         self.left = left
         self.r = 3
 
-    def draw_circle(self, x, y):
-        box = (x - self.r, y - self.r, x + self.r, y + self.r)
-        self.canvas.create_oval(box)
-
 
 class BinaryTree(tk.Tk):
 
     def __init__(self, height=0):
+        super(BinaryTree, self).__init__()
         self.head = None
         self.height = height
-        super(BinaryTree, self).__init__()
         print('Objeto Arvore Binaria com ', self, ' de valor inicial')
         self.title("Arvore Binaria")
         self.x = 150
@@ -41,17 +36,16 @@ class BinaryTree(tk.Tk):
             self.canvas.pack()
             framebt.pack(fill=tk.BOTH)
 
-    def set_selection(self, widget):
-        for w in widget.master.winfo_children():
-            w.config(relief=tk.RAISED)
-            widget.config(relief=tk.SUNKEN)
-
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x + 30, self.y - 60))
         self.canvas.itemconfig(text_id, text=self.vet[i])
 
+    def draw_circle(self, x, y):
+        box = (x - self.r, y - self.r, x + self.r, y + self.r)
+        self.canvas.create_oval(box)
+
     def __len__(self):
-        return len(self.vet)
+        pass
 
     def __str__(self):
         return self.__print_structure()
