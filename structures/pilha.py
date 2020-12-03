@@ -15,6 +15,12 @@ class Pilha(tk.Toplevel):
 
         self.canvas.bind('<Double-1>', self.append_double)
 
+        self.var = tk.StringVar()
+        labl = tk.Label(frame_pilha, text="Insert: ")
+        labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.entry = tk.Entry(frame_pilha, textvariable=self.var)
+        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+
         btn = tk.Button(frame_pilha, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn.config(command=self.append)
@@ -22,12 +28,6 @@ class Pilha(tk.Toplevel):
         btn2 = tk.Button(frame_pilha, text='pop')
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn2.config(command=self.pop)
-
-        self.var = tk.StringVar()
-        labl = tk.Label(self, text="Insert: ")
-        labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        self.entry = tk.Entry(self, textvariable=self.var)
-        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
         for a in range(len(self.vet)):
             self.draw_quad()

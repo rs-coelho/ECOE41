@@ -9,44 +9,54 @@ class Node:
 
 
 class ListaDE(tk.Toplevel):
-    def __init__(self, *args: Node):
+    def __init__(self):
 
         super(ListaDE, self).__init__()
+        self.len = 0
         self.title("Lista Duplamente Encadeada")
         self.canvas = tk.Canvas(self, bg="white")
-        framelistaDE = tk.Frame(self)
+        framelista_de = tk.Frame(self)
         self.x = 150
         self.y = 220
 
-        btn = tk.Button(framelistaDE, text='insert')
+        self.var = tk.StringVar()
+        labl = tk.Label(framelista_de, text="Insert: ")
+        labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.entry = tk.Entry(framelista_de, width=10, textvariable=self.var)
+        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X)
+
+        btn = tk.Button(framelista_de, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn.config(command=self.insert)
         
-        btn4 = tk.Button(framelistaDE, text='search')
+        btn4 = tk.Button(framelista_de, text='search')
         btn4.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn4.config(command=self.search)
 
-        btn2 = tk.Button(framelistaDE, text='delete')
+        btn2 = tk.Button(framelista_de, text='delete')
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn2.config(command=self.delete)
 
-        btn3 = tk.Button(framelistaDE, text='delete all')
+        btn3 = tk.Button(framelista_de, text='delete all')
         btn3.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn3.config(command=self.clear)
 
         self.canvas.pack()
-        framelistaDE.pack(fill=tk.BOTH)
+        framelista_de.pack(fill=tk.BOTH)
 
         self.head = None
-        for _ in args:
-            self.insert(_)
         
     def __str__(self):
         h = self.head
         r = "["
+        a, b = None, None
         while h:
             r = "[" if h == self.head else r + ", "
-            r += str(h.item)
+            if h.next is not None:
+                a = str(h.next.item)
+            if h.prev is not None:
+                b = str(h.prev.item)
+            r += str(h.item) + '(' + a + ', ' + b + ')'
             h = h.next
         return r + "]"
 
@@ -95,21 +105,6 @@ class ListaDE(tk.Toplevel):
             t = p.next
             del p
             p = t
-
-    def print_linked(self):
-        
-        h = self.head
-        r = "["
-        a, b = None, None
-        while h:
-            r = "[" if h == self.head else r + ", "
-            if h.next is not None:
-                a = str(h.next.item)
-            if h.prev is not None:
-                b = str(h.prev.item)
-            r += str(h.item) + '(' + a + ', ' + b + ')'
-            h = h.next
-        return r + "]"
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x + 30, self.y + 20))

@@ -8,45 +8,52 @@ class Node:
 
 
 class ListaSE(tk.Toplevel):
-    def __init__(self, *args: Node):
+    def __init__(self):
+
         super(ListaSE, self).__init__()
-        self.x = 30
-        self.y = 220
-        self.len = len(args)
+        self.len = 0
         self.title("Lista Simplesmente Encadeada")
         self.canvas = tk.Canvas(self, bg="white")
-        framelistaSE = tk.Frame(self)
+        framelista_se = tk.Frame(self)
+        self.x = 30
+        self.y = 220
 
-        btn = tk.Button(framelistaSE, text='insert')
+        self.var = tk.StringVar()
+        labl = tk.Label(framelista_se, text="Insert: ")
+        labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.entry = tk.Entry(framelista_se, width=10, textvariable=self.var)
+        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X)
+
+        btn = tk.Button(framelista_se, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn.config(command=self.insert)
 
-        btn2 = tk.Button(framelistaSE, text='delete')
+        btn2 = tk.Button(framelista_se, text='delete')
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn2.config(command=self.delete)
 
-        btn3 = tk.Button(framelistaSE, text='clear')
+        btn3 = tk.Button(framelista_se, text='clear')
         btn3.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn3.config(command=self.clear)
 
-        self.var = tk.StringVar()
-        labl = tk.Label(self, text="Insert: ")
-        labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-        self.entry = tk.Entry(self, width=10, textvariable=self.var)
-        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X)
-
         self.canvas.pack()
-        framelistaSE.pack(fill=tk.BOTH)
+        framelista_se.pack(fill=tk.BOTH)
 
         self.head = None
-        for _ in args:
-            self.insert(_)
 
     def __str__(self):
-        return self.print_linked()
-
-    def __len__(self):
-        return self.len
+        h = self.head
+        r = "["
+        while h:
+            r = "[" if h == self.head else r + ", "
+            r += str(h.item)
+            if h.next is not None:
+                a = str(h.next.item)
+                r += '(' + a + ')'
+            else:
+                r += '(None)'
+            h = h.next
+        return r + "]"
 
     def isEmpty(self):
         return self.head is None
@@ -113,7 +120,6 @@ class ListaSE(tk.Toplevel):
     def clear(self):
         p = self.head
         self.head = None
-        t = None
         while p:
             t = p.next
             del p
@@ -121,29 +127,14 @@ class ListaSE(tk.Toplevel):
         self.canvas.delete(tk.ALL)
         print('ListaSE: ', self)
 
-    def print_linked(self):
-        h = self.head
-        r = "["
-        a = None
-        while h:
-            r = "[" if h == self.head else r + ", "
-            r += str(h.item)
-            if h.next is not None:
-                a = str(h.next.item)
-                r += '(' + a + ')'
-            else:
-                r += '(None)'
-            h = h.next
-        return r + "]"
-
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))
         self.canvas.itemconfig(text_id, text=i)
-    
+
     def draw_quad(self):
         box = (self.x, self.y, self.x + 60, self.y - 40)
         self.canvas.create_rectangle(box)
-        line = (self.x+60, self.y-20, self.x+80, self.y-20)
+        line = (self.x + 60, self.y - 20, self.x + 80, self.y - 20)
         self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
         self.x += 80
 
@@ -151,3 +142,5 @@ class ListaSE(tk.Toplevel):
 if __name__ == "__main__":
     app = ListaSE()
     app.mainloop()
+    pass
+
