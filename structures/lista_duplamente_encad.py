@@ -16,7 +16,7 @@ class ListaDE(tk.Toplevel):
         self.title("Lista Duplamente Encadeada")
         self.canvas = tk.Canvas(self, bg="white")
         framelista_de = tk.Frame(self)
-        self.x = 150
+        self.x = 30
         self.y = 220
 
         self.var = tk.StringVar()
@@ -63,7 +63,9 @@ class ListaDE(tk.Toplevel):
     def isEmpty(self):
         return self.head is None
 
-    def search(self, v):
+    def search(self, v =None):
+        if v is None:
+            v = self.var.get() 
         if self.isEmpty():
             return None
         p = self.head
@@ -100,15 +102,14 @@ class ListaDE(tk.Toplevel):
         if self.head == p:
             self.head = p.next
         else:
-            p.prev.next = p.next
-
+            p.prev.next = p.prev
         if p.next:
             p.next.prev = p.prev
         del p
 
         k = self.head
         self.canvas.delete(tk.ALL)
-        self.x = 150
+        self.x = 30
         while k:
             self.draw_quad()
             self.write_text(k.item)
@@ -124,19 +125,33 @@ class ListaDE(tk.Toplevel):
             t = p.next
             del p
             p = t
+        self.canvas.delete(tk.ALL)
+        self.x = 30
+        print('ListaSE: ', self)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))
         self.canvas.itemconfig(text_id, text=i)
 
     def draw_quad(self):
-        box = (self.x, self.y, self.x + 60, self.y - 40)
-        self.canvas.create_rectangle(box)
-        line = (self.x + 60, self.y - 20, self.x + 80, self.y - 20)
-        self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-        line = (self.x, self.y - 20, self.x - 20, self.y - 20)
-        self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-        self.x += 80
+        if self.head.prev is None:
+            box = (self.x, self.y, self.x + 60, self.y - 40)
+            self.canvas.create_rectangle(box)
+            line = (self.x + 60, self.y - 30, self.x + 80, self.y - 30)
+            
+            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+            line = (self.x, self.y - 20, self.x - 20, self.y - 20)
+            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+            self.x += 80
+        else:
+            box = (self.x, self.y, self.x + 60, self.y - 40)
+            self.canvas.create_rectangle(box)
+            line = (self.x + 60, self.y - 30, self.x + 80, self.y - 30)
+            
+            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+            line = (self.x, self.y - 10, self.x - 20, self.y -10)
+            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+            self.x += 80
 
 
 if __name__ == "__main__":
