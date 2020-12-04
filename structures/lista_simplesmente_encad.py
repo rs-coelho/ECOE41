@@ -18,6 +18,9 @@ class ListaSE(tk.Toplevel):
         self.x = 30
         self.y = 220
 
+        self.canvas.bind("<Button-1>", self.drag_start)
+        self.canvas.bind("<B1-Motion>", self.drag_motion)
+
         self.var = tk.StringVar()
         labl = tk.Label(framelista_se, text="Insert: ")
         labl.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
@@ -35,9 +38,6 @@ class ListaSE(tk.Toplevel):
         btn3 = tk.Button(framelista_se, text='clear')
         btn3.pack(side=tk.LEFT, expand=True, fill=tk.X)
         btn3.config(command=self.clear)
-
-        self.bind("<B1-Motion>", self.drag_motion)
-        self.bind("<Button-1>", self.drag_start)
 
         self.canvas.pack()
         framelista_se.pack(fill=tk.BOTH)
@@ -100,14 +100,16 @@ class ListaSE(tk.Toplevel):
         if val == '':
             return False
         p, a = self.search(val)
+        print('Deleting:', p.item)
         if not p:
             return False
 
         if self.head == p:
             self.head = p.next
-        print(p.next.item, a)
-        if p.next and a is not None:
+
+        if a is not None:
             a.next = p.next
+
         del p
 
         k = self.head
@@ -137,12 +139,11 @@ class ListaSE(tk.Toplevel):
         widget.startX = event.x
         widget.startY = event.y
 
-    @staticmethod
-    def drag_motion(event):
-        widget = event.widget
-        x = widget.winfo_x() - widget.startX + event.x
-        y = widget.winfo_y() - widget.startY + event.y
-        widget.place(x=x, y=y)
+    def drag_motion(self, event):
+        x_item = self.canvas.find_closest(event.x, event.y)
+        x = event.x
+        y = event.y
+        self.canvas.itemconfig(x_item, x=x, y=y)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))

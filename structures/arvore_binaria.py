@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class BranchLeaf():
+class BranchLeaf:
     def __init__(self, item, right=None, left=None):
         self.item = item
         self.right = right
@@ -11,17 +11,18 @@ class BranchLeaf():
 
 class BinaryTree(tk.Toplevel):
 
-    def __init__(self, height=0):
+    def __init__(self):
         super(BinaryTree, self).__init__()
+        self.master = tk.Tk()
         self.head = None
-        self.height = height
+        self.hght = 0
         print('Objeto Arvore Binaria com ', self, ' de valor inicial')
         self.title("Arvore Binaria")
+        self.canvas = tk.Canvas(self, bg="white")
+        framebt = tk.Frame(self)
         self.x = 150
         self.y = 100
         self.r = 30
-        self.canvas = tk.Canvas(self, bg="white")
-        framebt = tk.Frame(self)
 
         btn = tk.Button(framebt, text='insert')
         btn.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
@@ -31,8 +32,6 @@ class BinaryTree(tk.Toplevel):
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn2.config(command=self.remove)
 
-        
-        
         self.canvas.pack()
         framebt.pack(fill=tk.BOTH)
 
@@ -40,7 +39,7 @@ class BinaryTree(tk.Toplevel):
         text_id = self.canvas.create_text((self.x + 30, self.y - 60))
         self.canvas.itemconfig(text_id, text=i)
 
-    def draw_circle(self, x= 130, y = 220):
+    def draw_circle(self, x=130, y=220):
         circle = (x - self.r, y - self.r, x + self.r, y + self.r)
         self.canvas.create_oval(circle)
 
@@ -54,7 +53,7 @@ class BinaryTree(tk.Toplevel):
         if self.head is not None:
             if root[-1] == ']' and self.head.left and self.head.right is not None:
                 root += '['
-            root += str(self.head.item)+'('+str(self.height)+')' + ']'
+            root += str(self.head.item)+'('+str(self.hght)+')' + ']'
             if self.head.left is not None:
                 root = self.head.left.__print_structure(root)
             if self.head.left is not None:
@@ -67,8 +66,8 @@ class BinaryTree(tk.Toplevel):
 
         if root is None:
             self.head = new
-            self.head.left = BinaryTree(self.height+1)
-            self.head.right = BinaryTree(self.height+1)
+            self.head.left = BinaryTree(self.hght+1)
+            self.head.right = BinaryTree(self.hght+1)
 
         elif item < root.item:
             self.head.left.insert(item)
