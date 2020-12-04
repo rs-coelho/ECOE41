@@ -9,7 +9,7 @@ class BranchLeaf():
         self.r = 3
 
 
-class BinaryTree(tk.Tk):
+class BinaryTree(tk.Toplevel):
 
     def __init__(self, height=0):
         super(BinaryTree, self).__init__()
@@ -19,6 +19,7 @@ class BinaryTree(tk.Tk):
         self.title("Arvore Binaria")
         self.x = 150
         self.y = 100
+        self.r = 30
         self.canvas = tk.Canvas(self, bg="white")
         framebt = tk.Frame(self)
 
@@ -30,19 +31,18 @@ class BinaryTree(tk.Tk):
         btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
         btn2.config(command=self.remove)
 
-        for a in range(len(self)):
-            self.draw_circle()
-            self.write_text(a)
-            self.canvas.pack()
-            framebt.pack(fill=tk.BOTH)
+        
+        
+        self.canvas.pack()
+        framebt.pack(fill=tk.BOTH)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x + 30, self.y - 60))
-        self.canvas.itemconfig(text_id, text=self.vet[i])
+        self.canvas.itemconfig(text_id, text=i)
 
-    def draw_circle(self, x, y):
-        box = (x - self.r, y - self.r, x + self.r, y + self.r)
-        self.canvas.create_oval(box)
+    def draw_circle(self, x= 130, y = 220):
+        circle = (x - self.r, y - self.r, x + self.r, y + self.r)
+        self.canvas.create_oval(circle)
 
     def __len__(self):
         pass
@@ -75,6 +75,8 @@ class BinaryTree(tk.Tk):
 
         elif item > root.item:
             self.head.right.insert(item)
+        self.draw_circle()
+        self.write_text(item)
 
     # not working properly
     def remove(self, item):
@@ -105,14 +107,6 @@ class BinaryTree(tk.Tk):
 
 
 if __name__ == "__main__":
-    arvore = BinaryTree()
-    arvore.insert(5)
-    arvore.insert(2)
-    arvore.insert(3)
-    arvore.insert(7)
-    arvore.insert(8)
-    arvore.insert(9)
-    arvore.mainloop()
-    print(arvore)
-    arvore.remove(5)
-    print(arvore)
+    app = BinaryTree()
+    app.mainloop()
+    pass
