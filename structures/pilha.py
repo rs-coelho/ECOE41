@@ -14,7 +14,7 @@ class Pilha(tk.Toplevel):
         self.canvas = tk.Canvas(self, bg="white")
         frame_pilha = tk.Frame(self)
 
-        self.canvas.bind("<Button-1>", self.error)
+        self.canvas.bind("<B1-Motion>", self.error)
 
         self.var = tk.StringVar()
         labl = tk.Label(frame_pilha, text="Insert: ")
@@ -57,7 +57,7 @@ class Pilha(tk.Toplevel):
         if other == '':
             return False
         self.vet.append(other)
-        print('Fila: ', self.vet)
+        print('Pilha: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
         self.entry.delete(0, 'end')
@@ -67,7 +67,7 @@ class Pilha(tk.Toplevel):
         if other == '':
             return False
         self.vet.append(other)
-        print('Fila: ', self.vet)
+        print('Pilha: ', self.vet)
         self.draw_quad()
         self.write_text(-1)
         self.entry.delete(0, 'end')

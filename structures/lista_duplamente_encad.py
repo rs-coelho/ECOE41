@@ -63,15 +63,15 @@ class ListaDE(tk.Toplevel):
     def isEmpty(self):
         return self.head is None
 
-    def search(self, v =None):
-        if v is None:
-            v = self.var.get() 
+    def search(self):
+        v = self.var.get()
         if self.isEmpty():
             return None
         p = self.head
         a = None
         while p:
             if p.item == v:
+                print('Found: ', v)
                 return p, a
             a = p
             p = p.next
@@ -90,7 +90,7 @@ class ListaDE(tk.Toplevel):
             self.head = new_node
         self.draw_quad()
         self.write_text(item)
-        print(self.head.item)
+        print('ListaDE: ', self)
         return new_node
 
     def delete(self):
@@ -114,7 +114,7 @@ class ListaDE(tk.Toplevel):
             self.draw_quad()
             self.write_text(k.item)
             k = k.next
-        print(self.head.item)
+        print('ListaDE: ', self)
         return True
 
     def clear(self):
@@ -127,7 +127,7 @@ class ListaDE(tk.Toplevel):
             p = t
         self.canvas.delete(tk.ALL)
         self.x = 30
-        print('ListaSE: ', self)
+        print('ListaDE: ', self)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))

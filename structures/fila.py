@@ -14,7 +14,7 @@ class Fila(tk.Toplevel):
         self.canvas = tk.Canvas(self, bg="white")
         framefila = tk.Frame(self)
 
-        self.canvas.bind("<Button-1>", self.error)
+        self.canvas.bind("<B1-Motion>", self.error)
 
         self.var = tk.StringVar()
         labl = tk.Label(framefila, text="Insert: ")
@@ -47,7 +47,7 @@ class Fila(tk.Toplevel):
 
     @staticmethod
     def error(event):
-        messagebox.showerror("Error", "Movimentação Não permitida pela estrutura")
+        messagebox.showerror("Error", "Movimentacao Nao permitida pela estrutura")
 
     def __len__(self):
         return len(self.vet)

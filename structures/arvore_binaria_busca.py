@@ -5,7 +5,7 @@ class BranchLeaf:
         self.left = left
 
 
-class BinaryTree:
+class BinarySearchTree:
 
     def __init__(self, height=0):
         self.head = None
@@ -31,8 +31,8 @@ class BinaryTree:
 
         if root is None:
             self.head = new
-            self.head.left = BinaryTree(self.height+1)
-            self.head.right = BinaryTree(self.height+1)
+            self.head.left = BinarySearchTree(self.height+1)
+            self.head.right = BinarySearchTree(self.height+1)
 
         elif item < root.item:
             self.head.left.insert(item)
@@ -85,7 +85,7 @@ class BinaryTree:
 
 
 if __name__ == "__main__":
-    arvore = BinaryTree()
+    arvore = BinarySearchTree()
     arvore.insert(5)
     arvore.insert(2)
     arvore.insert(3)

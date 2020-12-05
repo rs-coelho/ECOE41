@@ -15,10 +15,10 @@ class ListaSE(tk.Toplevel):
         self.title("Lista Simplesmente Encadeada")
         self.canvas = tk.Canvas(self, bg="white")
         framelista_se = tk.Frame(self)
+        self.start = None
         self.x = 30
         self.y = 220
 
-        self.canvas.bind("<Button-1>", self.drag_start)
         self.canvas.bind("<B1-Motion>", self.drag_motion)
 
         self.var = tk.StringVar()
@@ -133,17 +133,17 @@ class ListaSE(tk.Toplevel):
         self.x = 30
         print('ListaSE: ', self)
 
-    @staticmethod
-    def drag_start(event):
-        widget = event.widget
-        widget.startX = event.x
-        widget.startY = event.y
-
     def drag_motion(self, event):
-        x_item = self.canvas.find_closest(event.x, event.y)
-        x = event.x
-        y = event.y
-        self.canvas.itemconfig(x_item, x=x, y=y)
+        x, y = event.x, event.y
+        if not self.start:
+            self.start = (x, y)
+        else:
+            x_origin, y_origin = self.start
+            self.start = None
+            x_item = self.canvas.find_closest(event.x, event.y)
+            x = event.x
+            y = event.y
+            self.canvas.coords(x_item, x_origin, y_origin, x, y)
 
     def write_text(self, i):
         text_id = self.canvas.create_text((self.x - 50, self.y - 20))

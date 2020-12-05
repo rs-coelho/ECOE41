@@ -13,7 +13,6 @@ class BinaryTree(tk.Toplevel):
 
     def __init__(self):
         super(BinaryTree, self).__init__()
-        self.master = tk.Tk()
         self.head = None
         self.hght = 0
         print('Objeto Arvore Binaria com ', self, ' de valor inicial')

@@ -2,7 +2,9 @@ import tkinter as tk
 from functools import partial
 # considerando as operações possivelmente esta classe não será utilizada
 
+
 class NoRedondo(tk.Tk):
+
     def __init__(self, x=130, y=220, r=30, v="1"):
         super().__init__()
         self.x = x
