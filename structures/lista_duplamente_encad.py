@@ -2,10 +2,10 @@ import tkinter as tk
 
 
 class Node:
-    def __init__(self, item, nxt=None, prv=None):
+    def __init__(self, item):
         self.item = item
-        self.next = nxt
-        self.prev = prv
+        self.next = None
+        self.prev = None
 
 
 class ListaDE(tk.Toplevel):
@@ -48,15 +48,19 @@ class ListaDE(tk.Toplevel):
         
     def __str__(self):
         h = self.head
-        r = "["
+        r = '['
         a, b = None, None
         while h:
             r = "[" if h == self.head else r + ", "
             if h.next is not None:
                 a = str(h.next.item)
+            else:
+                a = None
             if h.prev is not None:
                 b = str(h.prev.item)
-            r += str(h.item) + '(' + a + ', ' + b + ')'
+            else:
+                b = None
+            r += '(prv:' + str(b) + ')' + str(h.item) + '(nxt:' + str(a) + ')'
             h = h.next
         return r + "]"
 
@@ -65,16 +69,16 @@ class ListaDE(tk.Toplevel):
 
     def search(self):
         v = self.var.get()
+        self.entry.delete(0, 'end')
         if self.isEmpty():
             return None
         p = self.head
-        a = None
         while p:
             if p.item == v:
                 print('Found: ', v)
-                return p, a
-            a = p
+                return p
             p = p.next
+        print('Item not found:', v)
         return None
 
     def insert(self):
@@ -83,9 +87,13 @@ class ListaDE(tk.Toplevel):
         if item == '':
             return False
         self.len += 1
-        new_node = Node(item, self.head)
+        new_node = Node(item)
+        k = self.head
         if not self.isEmpty():
-            self.head.prev = new_node
+            while k.next is not None:
+                k = k.next
+            k.next = new_node
+            new_node.prev = k
         else:
             self.head = new_node
         self.draw_quad()
@@ -95,16 +103,17 @@ class ListaDE(tk.Toplevel):
 
     def delete(self):
         val = self.var.get()
-        self.entry.delete(0, 'end')
         if val == '':
             return False
-        p, a = self.search(val)
+        p = self.head
+        while p.item != val:
+            p = p.next
         if self.head == p:
             self.head = p.next
         else:
-            p.prev.next = p.prev
-        if p.next:
-            p.next.prev = p.prev
+            p.prev.next = p.next
+            if p.next:
+                p.next.prev = p.prev
         del p
 
         k = self.head
@@ -120,7 +129,6 @@ class ListaDE(tk.Toplevel):
     def clear(self):
         p = self.head
         self.head = None
-        t = None
         while p:
             t = p.next
             del p
@@ -134,28 +142,19 @@ class ListaDE(tk.Toplevel):
         self.canvas.itemconfig(text_id, text=i)
 
     def draw_quad(self):
-        if self.head.prev is None:
-            box = (self.x, self.y, self.x + 60, self.y - 40)
-            self.canvas.create_rectangle(box)
-            line = (self.x + 60, self.y - 30, self.x + 80, self.y - 30)
-            
-            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-            line = (self.x, self.y - 20, self.x - 20, self.y - 20)
-            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-            self.x += 80
-        else:
-            box = (self.x, self.y, self.x + 60, self.y - 40)
-            self.canvas.create_rectangle(box)
-            line = (self.x + 60, self.y - 30, self.x + 80, self.y - 30)
-            
-            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-            line = (self.x, self.y - 10, self.x - 20, self.y -10)
-            self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
-            self.x += 80
+        box = (self.x, self.y, self.x + 60, self.y - 40)
+        self.canvas.create_rectangle(box)
+
+        line = (self.x + 60, self.y - 30, self.x + 80, self.y - 30)
+        self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+
+        line = (self.x, self.y - 10, self.x - 20, self.y - 10)
+        self.canvas.create_line(line, arrow=tk.LAST, fill="black", width=2)
+
+        self.x += 80
 
 
 if __name__ == "__main__":
     app = ListaDE()
     app.mainloop()
     pass
-

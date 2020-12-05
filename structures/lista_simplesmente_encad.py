@@ -50,9 +50,8 @@ class ListaSE(tk.Toplevel):
         while h:
             r = "[" if h == self.head else r + ", "
             r += str(h.item)
-            if h.next is not None:
-                a = str(h.next.item)
-                r += '(' + a + ')'
+            if h.next:
+                r += '(' + str(h.next.item) + ')'
             else:
                 r += '(None)'
             h = h.next
