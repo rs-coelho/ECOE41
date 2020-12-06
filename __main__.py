@@ -13,32 +13,32 @@ class Execute(tk.Tk):
         super(Execute, self).__init__()
         print('###### Main Menu initiated ######')
         self.title("Main Menu")
-        padding_x = 60
-        padding_y = 30
+        padding_x = 5
+        padding_y = 5
 
         btn = tk.Button(self, text='Pilha')
         btn.config(command=Pilha)
-        btn.grid(row=1, column=1, padx=padding_x, pady=padding_y)
+        btn.grid(row=1, column=0, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn2 = tk.Button(self, text='Fila')
         btn2.config(command=Fila)
-        btn2.grid(row=1, column=3, padx=padding_x, pady=padding_y)
+        btn2.grid(row=1, column=1, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn3 = tk.Button(self, text='Lista Simples Enc.')
         btn3.config(command=ListaSE)
-        btn3.grid(row=2, column=1, padx=padding_x, pady=padding_y)
+        btn3.grid(row=2, column=0, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn4 = tk.Button(self, text='Lista Dupla Enc.')
         btn4.config(command=ListaDE)
-        btn4.grid(row=2, column=3, padx=padding_x, pady=padding_y)
+        btn4.grid(row=2, column=1, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn5 = tk.Button(self, text='Arvore Binaria')
         btn5.config(command=BinaryTree)
-        btn5.grid(row=3, column=1, padx=padding_x, pady=padding_y)
+        btn5.grid(row=3, column=0, padx=padding_x, pady=padding_y, sticky='NWSE')
 
-        btn6 = tk.Button(self, text='Arvore Binaria de Busca')
+        btn6 = tk.Button(self, text='Arvore Bsc Binaria')
         btn6.config(command=BinarySearchTree)
-        btn6.grid(row=3, column=3, padx=padding_x, pady=padding_y)
+        btn6.grid(row=3, column=1, padx=padding_x, pady=padding_y, sticky='NWSE')
 
     def run(self):
         self.mainloop()

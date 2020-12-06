@@ -1,5 +1,5 @@
 import tkinter as tk
-
+from tkinter import messagebox
 
 class Node:
     def __init__(self, item):
@@ -76,6 +76,7 @@ class ListaDE(tk.Toplevel):
         while p:
             if p.item == v:
                 print('Found: ', v)
+                messagebox.showinfo("Item Found!", "O item " + v + " esta presente na estrutura")
                 return p
             p = p.next
         print('Item not found:', v)
