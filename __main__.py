@@ -2,7 +2,7 @@ from structures.pilha import Pilha
 from structures.fila import Fila
 from structures.lista_simplesmente_encad import ListaSE
 from structures.lista_duplamente_encad import ListaDE
-from structures.arvore_binaria import BinaryTree
+from structures.arvore_binaria import BinaryTreeWindow
 from structures.arvore_binaria_busca import BinarySearchTree
 import tkinter as tk
 
@@ -15,6 +15,20 @@ class Execute(tk.Tk):
         self.title("Main Menu")
         padding_x = 5
         padding_y = 5
+
+        msg = \
+            '''
+----------------------------------------------------------------------------------------
+|                                Bem vindo ao menu principal!                            |
+|                                                                                                             |
+|                                                                                                             |
+|Este é um app para ajudar a compreender as estruturas de dados.  |
+|Por favor escolha uma das estruturas disponiveis:                            |
+|                                                                                                             |
+----------------------------------------------------------------------------------------
+        '''
+        label = tk.Label(self, text=msg)
+        label.grid(row=0, columnspan=2, padx=padding_x)
 
         btn = tk.Button(self, text='Pilha')
         btn.config(command=Pilha)
@@ -33,7 +47,7 @@ class Execute(tk.Tk):
         btn4.grid(row=2, column=1, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn5 = tk.Button(self, text='Arvore Binaria')
-        btn5.config(command=BinaryTree)
+        btn5.config(command=BinaryTreeWindow)
         btn5.grid(row=3, column=0, padx=padding_x, pady=padding_y, sticky='NWSE')
 
         btn6 = tk.Button(self, text='Arvore Bsc Binaria')
