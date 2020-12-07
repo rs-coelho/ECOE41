@@ -1,26 +1,43 @@
 import tkinter as tk
 
 
-class BranchLeaf:
-    def __init__(self, item, right=None, left=None):
+class BinaryTree:
+    def __init__(self, item):
         self.item = item
-        self.right = right
-        self.left = left
-        self.r = 3
+        self.left = None
+        self.right = None
+
+    def insert(self, obj, item):
+        print('Inseting: '+item)
+        if self.item == item:
+            return False
+
+        if item < self.item:
+            if self.left:
+                self.left.insert(obj,item)
+            else:
+                self.left = BinaryTree(item)
+                obj.write_text(item)
+                obj.draw_circle_left()
+
+        else:
+            if self.right:
+                self.right.insert(obj,item)
+            else:
+                self.right = BinaryTree(item)
+                obj.write_text_right(item)
+                obj.draw_circle_right()
 
 
-class BinaryTree(tk.Toplevel):
+class BinaryTreeWindow(tk.Toplevel):
 
-    def __init__(self, height=0):
-        self.head = None
-        self.height = height
-        if self.height == 0:
-            super(BinaryTree, self).__init__()
-
+    def __init__(self):
+        super(BinaryTreeWindow, self).__init__()
         self.title("Arvore de busca binaria")
         self.canvas = tk.Canvas(self, bg="white")
         framearv_bus = tk.Frame(self)
-        self.x = 150
+        self.tree = None
+        self.x = 130
         self.y = 30
         self.r = 30
         self.xr = 190
@@ -48,14 +65,14 @@ class BinaryTree(tk.Toplevel):
         return self.__print_structure()
 
     def __print_structure(self, root='['):
-        if self.head is not None:
-            if root[-1] == ']' and self.head.left and self.head.right is not None:
+        if self.tree.item is not None:
+            if root[-1] == ']' and self.tree.left and self.tree.left is not None:
                 root += '['
-            root += str(self.head.item) + '(' + str(self.height) + ')' + ']'
-            if self.head.left is not None:
-                root = self.head.left.__print_structure(root)
-            if self.head.left is not None:
-                root = self.head.right.__print_structure(root)
+            root += str(self.tree.item) + ']'
+            if self.tree.left is not None:
+                root = self.tree.left.__print_structure(root)
+            if self.tree.left is not None:
+                root = self.tree.left.__print_structure(root)
         return root
 
     def insert(self, item=None):
@@ -64,35 +81,18 @@ class BinaryTree(tk.Toplevel):
             self.entry.delete(0, 'end')
             if item == '':
                 return False
-        root = self.head
-        new = BranchLeaf(item)
 
-        if item == '':
-            return False
-
-        if root is None:
-            self.head = new
-            print(" ak")
+        print('ok1')
+        if self.tree is None:
+            self.tree = BinaryTree(item)
             self.write_text(item)
             self.draw_circle()
-            self.head.left = BinaryTree(self.height + 1)
-            self.head.right = BinaryTree(self.height + 1)
 
-        if item < root.item and root.right is None:
+        print('ok2')
+        if item == '' or item == self.tree.item:
+            return False
 
-            print("passou aki")
-            self.write_text(item)
-            self.draw_circle_left()
-        elif root.right is not None:
-            self.head.left.insert(item)
-
-        if item > root.item and root.right is None:
-
-            print("passou aki2")
-            self.write_text_right(item)
-            self.draw_circle_right()
-        elif root.left is not None:
-            self.head.right.insert(item)
+        self.tree.insert(self, item)
 
         # not working properly
 
@@ -103,27 +103,27 @@ class BinaryTree(tk.Toplevel):
             if item == '':
                 return False
 
-        if self.head is not None:
+        if self.tree is not None:
 
-            if self.head.item is item:
-                r_item = self.head
-                if self.head.left.head is None:
-                    self.head = self.head.right.head
+            if self.tree.item is item:
+                r_item = self.tree
+                if self.tree.left.tree is None:
+                    self.tree = self.tree.left.tree
 
-                elif self.head.right.head is None:
-                    self.head = self.head.left.head
+                elif self.tree.left.tree is None:
+                    self.tree = self.tree.left.tree
 
                 else:
-                    self.head = self.head.right.head
+                    self.tree = self.tree.left.tree
 
                 del r_item
                 return
 
-            elif item <= self.head.item and self.head.left is not None:
-                self.head.left.remove(item)
+            elif item <= self.tree.item and self.tree.left is not None:
+                self.tree.left.remove(item)
 
-            elif item >= self.head.item and self.head.right is not None:
-                self.head.right.remove(item)
+            elif item >= self.tree.item and self.tree.left is not None:
+                self.tree.left.remove(item)
 
         else:
             return False
@@ -176,5 +176,5 @@ class BinaryTree(tk.Toplevel):
 
 
 if __name__ == "__main__":
-    arvore = BinaryTree()
+    arvore = BinaryTreeWindow()
     arvore.mainloop()
