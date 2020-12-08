@@ -11,7 +11,7 @@ class Execute(tk.Tk):
 
     def __init__(self):
         super(Execute, self).__init__()
-        print('###### Main Menu initiated ######')
+        print('############# Main Menu initiated #############')
         self.title("Main Menu")
         padding_x = 5
         padding_y = 5
@@ -53,6 +53,10 @@ class Execute(tk.Tk):
         btn6 = tk.Button(self, text='Arvore Bsc Binaria')
         btn6.config(command=BinarySearchTree)
         btn6.grid(row=3, column=1, padx=padding_x, pady=padding_y, sticky='NWSE')
+
+        msg2 = 'Created by Rodrigo Coelho and Samuel Siqueira'
+        label1 = tk.Label(self, text=msg2)
+        label1.grid(row=4, columnspan=2, padx=padding_x)
 
     def run(self):
         self.mainloop()
